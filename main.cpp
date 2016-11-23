@@ -143,15 +143,37 @@ int main()
                 */
                     // Lips outer part
                     for (unsigned long i = 49; i <= 59; ++i) {
-                        lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
+                        // lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
                     }
-                    lines.push_back(image_window::overlay_line(d.part(48), d.part(59), color));
+                    lines.push_back(image_window::overlay_line(d.part(49), d.part(48), rgb_pixel(0,100,255)));
+                    lines.push_back(image_window::overlay_line(d.part(50), d.part(49), rgb_pixel(255,0,125)));
+                    lines.push_back(image_window::overlay_line(d.part(51), d.part(50), rgb_pixel(0,100,255)));
+                    lines.push_back(image_window::overlay_line(d.part(52), d.part(51), rgb_pixel(255,0,125)));
+                    lines.push_back(image_window::overlay_line(d.part(53), d.part(52), rgb_pixel(0,100,255)));
+                    lines.push_back(image_window::overlay_line(d.part(54), d.part(53), rgb_pixel(255,0,125)));
+                    lines.push_back(image_window::overlay_line(d.part(55), d.part(54), rgb_pixel(0,100,255)));
+                    lines.push_back(image_window::overlay_line(d.part(56), d.part(55), rgb_pixel(255,0,125)));
+                    lines.push_back(image_window::overlay_line(d.part(57), d.part(56), rgb_pixel(0,100,255)));
+                    lines.push_back(image_window::overlay_line(d.part(58), d.part(57), rgb_pixel(255,0,125)));
+                    lines.push_back(image_window::overlay_line(d.part(59), d.part(58), rgb_pixel(0,100,255)));
+                    lines.push_back(image_window::overlay_line(d.part(48), d.part(59), rgb_pixel(255,0,125)));
+                    // end Lips outer Part
+
 
                     // Lips inside part
                     for (unsigned long i = 61; i <= 67; ++i) {
-                        lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
+                      //  lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
                     }
-                    lines.push_back(image_window::overlay_line(d.part(60), d.part(67), color));
+                    lines.push_back(image_window::overlay_line(d.part(61), d.part(60), rgb_pixel(120,120,255)));
+                    lines.push_back(image_window::overlay_line(d.part(62), d.part(61), rgb_pixel(255,0,0)));
+                    lines.push_back(image_window::overlay_line(d.part(63), d.part(62), rgb_pixel(120,120,255)));
+                    lines.push_back(image_window::overlay_line(d.part(64), d.part(63), rgb_pixel(255,0,0)));
+                    lines.push_back(image_window::overlay_line(d.part(65), d.part(64), rgb_pixel(120,120,255)));
+                    lines.push_back(image_window::overlay_line(d.part(66), d.part(65), rgb_pixel(255,0,0)));
+                    lines.push_back(image_window::overlay_line(d.part(67), d.part(66), rgb_pixel(120,120,255)));
+
+                    lines.push_back(image_window::overlay_line(d.part(60), d.part(67), rgb_pixel(255,0,0)));
+                    // end Lips inside Part
                 }
 
                 // add overlay
