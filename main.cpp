@@ -68,7 +68,7 @@ int main()
         {
 
             // schleife erstmal nur für einen Frame ausführen
-            if (count == 0){
+            if (true){
                 // Grab a frame
                 cv::Mat temp;
                 cap >> temp;
@@ -88,6 +88,7 @@ int main()
                 for (unsigned long i = 0; i < faces.size(); ++i) {
                     shapes.push_back(pose_model(cimg, faces[i]));
                 }
+
 
 
                 // Display it all on the screen
@@ -162,7 +163,7 @@ int main()
                     // end Lips outer Part
 
                     // line from one end to the other
-                    lines.push_back(image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(200,200,200)));
+                    //lines.push_back(image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(200,200,200)));
 
 
                     // Lips inside part
@@ -179,6 +180,38 @@ int main()
 
                     lines.push_back(image_window::overlay_line(d.part(60), d.part(67), rgb_pixel(255,0,0)));
                     // end Lips inside Part
+
+                    point upper = point(0,0);
+                    point lower = point(0,500);
+
+                    for(int i = 48; i < 68; i++) {
+                        if(d.part(i).y() < lower.y()){
+                            lower = d.part(i);
+                        }
+                        if(d.part(i).y() > upper.y()){
+                            upper = d.part(i);
+                        }
+                    }
+
+                    long mh = (upper-lower).length();
+
+                    long lipheight = max(upper.y() - d.part(48).y(), upper.y() - d.part(54).y());
+                    if(mh/2 >= lipheight) {
+                        lines.push_back(image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(0,0,0)));
+                    } else {
+                        lines.push_back(image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(200,200,200)));
+                    }
+
+
+                    point secondPoint = point(100,100);
+                    point firstPoint = d.part(50);
+                    /*if(firstPoint >= secondPoint) {
+                        cout << "1";
+                    } else {
+                        cout << "2";
+                    }*/
+
+
                 }
 
                 // add overlay
