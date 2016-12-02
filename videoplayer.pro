@@ -11,16 +11,9 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        #videoplayer.cpp \
-    #copyprocessor.cpp
     facerecognizer.cpp
 
-#HEADERS  += videoplayer.h \
- #   copyprocessor.h
-
 FORMS    += videoplayer.ui
-
-include(../opencv/videoengine.pri)
 
 macx {
 
