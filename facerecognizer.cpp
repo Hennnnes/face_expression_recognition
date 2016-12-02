@@ -43,8 +43,8 @@ using namespace dlib;
 using namespace std;
 
 FaceRecognizer::FaceRecognizer()
+    : emotion(0)
 {
-
 }
 
 
@@ -117,12 +117,14 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
 
         long lipheight = max(upper.y() - d.part(48).y(), upper.y() - d.part(54).y());
         if(mh/2 >= lipheight) {
+
             // neutral / traurig
-            qDebug() << "neutral";
+            emotion = 0;
             lines.push_back(dlib::image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(255,255,255)));
         } else {
+
             // glücklich
-            qDebug() << "glücklich";
+            emotion = 1;
             lines.push_back(dlib::image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(0,0,255)));
         }
 
@@ -132,4 +134,8 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
     }
 
     return lines;
+}
+
+int FaceRecognizer::getEmotion(){
+    return emotion;
 }

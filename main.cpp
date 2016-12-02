@@ -74,6 +74,13 @@ int main()
                 FaceRecognizer recog = FaceRecognizer();
                 std::vector<image_window::overlay_line> lines = recog.calculateOverlay(shapes);
 
+                int emotion = recog.getEmotion();
+                if (emotion == 1){
+                    qDebug() << "emotion: glücklich";
+                } else {
+                    qDebug() << "emotion: neutral";
+                }
+
                 // add overlay
                 win.add_overlay(lines);
             }
