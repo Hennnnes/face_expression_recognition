@@ -1,32 +1,3 @@
-// The contents of this file are in the public domain. See LICENSE_FOR_EXAMPLE_PROGRAMS.txt
-/*
-
-    This example program shows how to find frontal human faces in an image and
-    estimate their pose.  The pose takes the form of 68 landmarks.  These are
-    points on the face such as the corners of the mouth, along the eyebrows, on
-    the eyes, and so forth.
-
-
-    This example is essentially just a version of the face_landmark_detection_ex.cpp
-    example modified to use OpenCV's VideoCapture object to read from a camera instead
-    of files.
-
-
-    Finally, note that the face detector is fastest when compiled with at least
-    SSE2 instructions enabled.  So if you are using a PC with an Intel or AMD
-    chip then you should enable at least SSE2 instructions.  If you are using
-    cmake to compile this program you can enable them by using one of the
-    following commands when you create the build project:
-        cmake path_to_dlib_root/examples -DUSE_SSE2_INSTRUCTIONS=ON
-        cmake path_to_dlib_root/examples -DUSE_SSE4_INSTRUCTIONS=ON
-        cmake path_to_dlib_root/examples -DUSE_AVX_INSTRUCTIONS=ON
-    This will set the appropriate compiler options for GCC, clang, Visual
-    Studio, or the Intel compiler.  If you are using another compiler then you
-    need to consult your compiler's manual to determine how to enable these
-    instructions.  Note that AVX is the fastest but requires a CPU from at least
-    2011.  SSE4 is the next fastest and is supported by most current machines.
-*/
-
 #include <dlib/opencv.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <dlib/image_processing/frontal_face_detector.h>
@@ -35,14 +6,18 @@
 #include <dlib/gui_widgets.h>
 
 #include <qDebug>
+#include <facerecognizer.h>
+
 
 using namespace dlib;
 using namespace std;
 
 int main()
 {
+
     try
     {
+        // videocapture
         cv::VideoCapture cap(0);
 
         if (!cap.isOpened())
@@ -51,10 +26,9 @@ int main()
             return 1;
         }
 
-      //  cap.set(CV_CAP_PROP_FRAME_WIDTH, 160);
-      //  cap.set(CV_CAP_PROP_FRAME_HEIGHT, 120);
 
-        image_window win;
+
+        image_window win;  // TODO: von außen aufrufen
 
         // Load face detection and pose estimation models.
         frontal_face_detector detector = get_frontal_face_detector();
@@ -63,7 +37,7 @@ int main()
         deserialize("shape_predictor_68_face_landmarks.dat") >> pose_model;
 
         // Grab and process frames until the main window is closed by the user.
-        short count = 0;
+
         while(!win.is_closed())
         {
 
@@ -97,127 +71,11 @@ int main()
 
 
                 // calculate overlay
-                const rgb_pixel color = rgb_pixel(255,255,0);
-                std::vector<image_window::overlay_line> lines;
-                for (unsigned long i = 0; i < shapes.size(); ++i)
-                {
-                    DLIB_CASSERT(shapes[i].num_parts() == 68,
-                        "\t std::vector<image_window::overlay_line> render_face_detections()"
-                        << "\n\t Invalid inputs were given to this function. "
-                        << "\n\t shapes["<<i<<"].num_parts():  " << shapes[i].num_parts()
-                    );
-
-                    const full_object_detection& d = shapes[i];
-                    // Around Chin. Ear to Ear
-                  /*  for (unsigned long i = 1; i <= 16; ++i) {
-                        lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
-                    }
-                  */
-                  /*
-                    // Line on top of nose
-                    for (unsigned long i = 28; i <= 30; ++i)
-                        lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
-                  */
-                  /*
-                    // left eyebrow
-                    for (unsigned long i = 18; i <= 21; ++i)
-                        lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
-                    // Right eyebrow
-                    for (unsigned long i = 23; i <= 26; ++i)
-                        lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
-                    // Bottom part of the nose
-                    for (unsigned long i = 31; i <= 35; ++i)
-                        lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
-                    // Line from the nose to the bottom part above
-                    lines.push_back(image_window::overlay_line(d.part(30), d.part(35), color));
-                */
-                    /*
-                    // Left eye
-                    for (unsigned long i = 37; i <= 41; ++i)
-                        lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
-                    lines.push_back(image_window::overlay_line(d.part(36), d.part(41), color));
-
-                    // Right eye
-                    for (unsigned long i = 43; i <= 47; ++i)
-                        lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
-                    lines.push_back(image_window::overlay_line(d.part(42), d.part(47), color));
-                */
-                    // Lips outer part
-                    for (unsigned long i = 49; i <= 59; ++i) {
-                        // lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
-                    }
-
-                    lines.push_back(image_window::overlay_line(d.part(49), d.part(48), rgb_pixel(0,100,255)));
-                    lines.push_back(image_window::overlay_line(d.part(50), d.part(49), rgb_pixel(255,0,125)));
-                    lines.push_back(image_window::overlay_line(d.part(51), d.part(50), rgb_pixel(0,100,255)));
-                    lines.push_back(image_window::overlay_line(d.part(52), d.part(51), rgb_pixel(255,0,125)));
-                    lines.push_back(image_window::overlay_line(d.part(53), d.part(52), rgb_pixel(0,100,255)));
-                    lines.push_back(image_window::overlay_line(d.part(54), d.part(53), rgb_pixel(255,0,125)));
-
-                    lines.push_back(image_window::overlay_line(d.part(55), d.part(54), rgb_pixel(0,100,255)));
-                    lines.push_back(image_window::overlay_line(d.part(56), d.part(55), rgb_pixel(255,0,125)));
-                    lines.push_back(image_window::overlay_line(d.part(57), d.part(56), rgb_pixel(0,100,255)));
-                    lines.push_back(image_window::overlay_line(d.part(58), d.part(57), rgb_pixel(255,0,125)));
-                    lines.push_back(image_window::overlay_line(d.part(59), d.part(58), rgb_pixel(0,100,255)));
-                    lines.push_back(image_window::overlay_line(d.part(48), d.part(59), rgb_pixel(255,0,125)));
-                    // end Lips outer Part
-
-                    // line from one end to the other
-                    //lines.push_back(image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(200,200,200)));
-
-
-                    // Lips inside part
-                    for (unsigned long i = 61; i <= 67; ++i) {
-                      //  lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
-                    }
-                    lines.push_back(image_window::overlay_line(d.part(61), d.part(60), rgb_pixel(120,120,255)));
-                    lines.push_back(image_window::overlay_line(d.part(62), d.part(61), rgb_pixel(255,0,0)));
-                    lines.push_back(image_window::overlay_line(d.part(63), d.part(62), rgb_pixel(120,120,255)));
-                    lines.push_back(image_window::overlay_line(d.part(64), d.part(63), rgb_pixel(255,0,0)));
-                    lines.push_back(image_window::overlay_line(d.part(65), d.part(64), rgb_pixel(120,120,255)));
-                    lines.push_back(image_window::overlay_line(d.part(66), d.part(65), rgb_pixel(255,0,0)));
-                    lines.push_back(image_window::overlay_line(d.part(67), d.part(66), rgb_pixel(120,120,255)));
-
-                    lines.push_back(image_window::overlay_line(d.part(60), d.part(67), rgb_pixel(255,0,0)));
-                    // end Lips inside Part
-
-                    point upper = point(0,0);
-                    point lower = point(0,500);
-
-                    for(int i = 48; i < 68; i++) {
-                        if(d.part(i).y() < lower.y()){
-                            lower = d.part(i);
-                        }
-                        if(d.part(i).y() > upper.y()){
-                            upper = d.part(i);
-                        }
-                    }
-
-                    long mh = (upper-lower).length();
-
-                    long lipheight = max(upper.y() - d.part(48).y(), upper.y() - d.part(54).y());
-                    if(mh/2 >= lipheight) {
-                        lines.push_back(image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(0,0,0)));
-                    } else {
-                        lines.push_back(image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(200,200,200)));
-                    }
-
-
-                    point secondPoint = point(100,100);
-                    point firstPoint = d.part(50);
-                    /*if(firstPoint >= secondPoint) {
-                        cout << "1";
-                    } else {
-                        cout << "2";
-                    }*/
-
-
-                }
+                FaceRecognizer recog = FaceRecognizer();
+                std::vector<image_window::overlay_line> lines = recog.calculateOverlay(shapes);
 
                 // add overlay
                 win.add_overlay(lines);
-
-                count++;
             }
         }
     }
@@ -233,3 +91,6 @@ int main()
         cout << e.what() << endl;
     }
 }
+
+
+

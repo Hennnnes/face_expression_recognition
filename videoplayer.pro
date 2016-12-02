@@ -13,6 +13,7 @@ TEMPLATE = app
 SOURCES += main.cpp\
         #videoplayer.cpp \
     #copyprocessor.cpp
+    facerecognizer.cpp
 
 #HEADERS  += videoplayer.h \
  #   copyprocessor.h
@@ -56,3 +57,6 @@ win32 {
     SOURCES +=     ../../../Desktop/dlib-19.2/dlib/all/source.cpp
 
 }
+
+HEADERS += \
+    facerecognizer.h
