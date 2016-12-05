@@ -84,6 +84,7 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
 
 
         // read left and right point, WARUM 0,500???
+        // dachte an hoffentlich groß genug damit der punkt immer überschrieben wird
         point upper = point(0,0);
         point lower = point(0,500);
 
@@ -96,10 +97,13 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
             }
         }
 
+        // Mouthheight mit vektorrechnung
         long mh = (upper-lower).length();
-
+        //qDebug() << mh;
+        //lipheight vom höheren der beiden lippeneckpunkte
         long lipheight = max(upper.y() - d.part(48).y(), upper.y() - d.part(54).y());
-        if(mh/2 >= lipheight) {
+        //qDebug() << lipheight;
+        if(mh/2 >= 0.8 * lipheight) {
 
             // neutral / traurig
             emotion = 0;
@@ -112,8 +116,6 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
         }
 
 
-        point secondPoint = point(100,100);
-        point firstPoint = d.part(50);
     }
 
     return lines;
