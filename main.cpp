@@ -77,8 +77,10 @@ int main()
                 int emotion = recog.getEmotion();
                 if (emotion == 1){
                     qDebug() << "emotion: glücklich";
-                } else {
+                } else if (emotion == 0) {
                     qDebug() << "emotion: neutral";
+                } else if (emotion == 2) {
+                    qDebug() << "emotion: traurig";
                 }
 
                 // add overlay
