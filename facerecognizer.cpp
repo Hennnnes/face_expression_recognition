@@ -62,12 +62,45 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
 
         const full_object_detection& d = shapes[i];
 
+        const rgb_pixel color = rgb_pixel(0,255,0);
+
+
+        // Around Chin. Ear to Ear
+        for (unsigned long i = 1; i <= 16; ++i)
+            lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
+
+        // Line on top of nose
+        for (unsigned long i = 28; i <= 30; ++i)
+            lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
+
+        // left eyebrow
+        for (unsigned long i = 18; i <= 21; ++i)
+            lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
+        // Right eyebrow
+        for (unsigned long i = 23; i <= 26; ++i)
+            lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
+        // Bottom part of the nose
+        for (unsigned long i = 31; i <= 35; ++i)
+            lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
+        // Line from the nose to the bottom part above
+        lines.push_back(image_window::overlay_line(d.part(30), d.part(35), color));
+
+        // Left eye
+        for (unsigned long i = 37; i <= 41; ++i)
+            lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
+        lines.push_back(image_window::overlay_line(d.part(36), d.part(41), color));
+
+        // Right eye
+        for (unsigned long i = 43; i <= 47; ++i)
+            lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
+        lines.push_back(image_window::overlay_line(d.part(42), d.part(47), color));
+
         // lips outer part
-        for (int i = 49; i < 59; ++i) {
-            lines.push_back(dlib::image_window::overlay_line(d.part(i), d.part(i - 1), rgb_pixel(0,100,255)));
+        for (int i = 49; i <= 59; ++i) {
+            lines.push_back(dlib::image_window::overlay_line(d.part(i), d.part(i - 1), color));
         }
 
-        lines.push_back(dlib::image_window::overlay_line(d.part(48), d.part(59), rgb_pixel(255,0,125)));
+        lines.push_back(dlib::image_window::overlay_line(d.part(48), d.part(59), color));
         // end Lips outer Part
 
         // line from one end to the other
@@ -76,10 +109,10 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
 
         // Lips inside part
         for (int i = 61; i <= 67; ++i) {
-           lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), rgb_pixel(120,120,255)));
+           lines.push_back(image_window::overlay_line(d.part(i), d.part(i-1), color));
         }
 
-        lines.push_back(dlib::image_window::overlay_line(d.part(60), d.part(67), rgb_pixel(255,0,0)));
+        lines.push_back(dlib::image_window::overlay_line(d.part(60), d.part(67), color));
         // end Lips inside Part
 
 
@@ -103,7 +136,7 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
         //lipheight average
         long lipheight = (d.part(48).y() - upper.y() + d.part(54).y() - upper.y())/2;
         // qDebug() << mh;
-        lines.push_back(dlib::image_window::overlay_line(upper, d.part(48), rgb_pixel(255,255,255)));
+        //lines.push_back(dlib::image_window::overlay_line(upper, d.part(48), rgb_pixel(255,255,255)));
         if(mh/2 >= 1.35 *  lipheight) {
             // glücklich
             emotion = 1;
