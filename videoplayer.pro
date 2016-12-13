@@ -11,7 +11,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    facerecognizer.cpp
+    facerecognizer.cpp \
+    videocapturer.cpp
 
 FORMS    += videoplayer.ui
 
@@ -52,4 +53,5 @@ win32 {
 }
 
 HEADERS += \
-    facerecognizer.h
+    facerecognizer.h \
+    videocapturer.h
