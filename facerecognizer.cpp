@@ -109,7 +109,7 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
             emotion = 1;
             lines.push_back(dlib::image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(0,0,255)));
 
-        } else if (mh / 2 < 1.15 * lipheight) {
+        } else if (mh / 2 < 1 * lipheight) {
             // traurig
             emotion = 2;
             lines.push_back(dlib::image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(255,100,0)));

@@ -83,13 +83,13 @@ int main()
                 if (emotion == 1){
                     qDebug() << "emotion: glücklich";
 
-                     win.add_overlay(dlib::image_window::overlay_rect(rect, rgb_pixel(255,0,0),"Gluecklich" ));
+                     //win.add_overlay(dlib::image_window::overlay_rect(rect, rgb_pixel(255,0,0),"Gluecklich" ));
                 } else if (emotion == 0) {
                     qDebug() << "emotion: neutral";
-                     win.add_overlay(dlib::image_window::overlay_rect(rect, rgb_pixel(255,0,0),"Neutral" ));
+                     //win.add_overlay(dlib::image_window::overlay_rect(rect, rgb_pixel(255,0,0),"Neutral" ));
                 } else if (emotion == 2) {
                     qDebug() << "emotion: traurig";
-                     win.add_overlay(dlib::image_window::overlay_rect(rect, rgb_pixel(255,0,0),"Traurig" ));
+                     //win.add_overlay(dlib::image_window::overlay_rect(rect, rgb_pixel(255,0,0),"Traurig" ));
                 }
 
                 // add overlay
