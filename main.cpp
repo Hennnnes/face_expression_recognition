@@ -75,12 +75,21 @@ int main()
                 std::vector<image_window::overlay_line> lines = recog.calculateOverlay(shapes);
 
                 int emotion = recog.getEmotion();
+
+                dlib::rectangle rect = rectangle(0, 0, 100, 100);
+
+                move_rect(rect, 200, 200);
+
                 if (emotion == 1){
                     qDebug() << "emotion: glücklich";
+
+                    win.add_overlay(dlib::image_window::overlay_rect(rect, rgb_pixel(255,0,0),"Gluecklich" ));
                 } else if (emotion == 0) {
                     qDebug() << "emotion: neutral";
+                    win.add_overlay(dlib::image_window::overlay_rect(rect, rgb_pixel(255,0,0),"Neutral" ));
                 } else if (emotion == 2) {
                     qDebug() << "emotion: traurig";
+                    win.add_overlay(dlib::image_window::overlay_rect(rect, rgb_pixel(255,0,0),"Traurig" ));
                 }
 
                 // add overlay
