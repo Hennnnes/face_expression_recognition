@@ -104,12 +104,12 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
         long lipheight = (d.part(48).y() - upper.y() + d.part(54).y() - upper.y())/2;
         qDebug() << mh;
         lines.push_back(dlib::image_window::overlay_line(upper, d.part(48), rgb_pixel(255,255,255)));
-        if(mh/2 >= 1.3 *  lipheight) {
+        if(mh/2 >= 1.35 *  lipheight) {
             // glücklich
             emotion = 1;
             lines.push_back(dlib::image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(0,0,255)));
 
-        } else if (mh / 2 < 1.1 * lipheight) {
+        } else if (mh / 2 < 1.15 * lipheight) {
             // traurig
             emotion = 2;
             lines.push_back(dlib::image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(255,100,0)));
