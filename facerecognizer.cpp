@@ -99,10 +99,10 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
 
         // Mouthheight
         long mh = (lower.y() - upper.y());
-        qDebug() << upper.y();
+        // qDebug() << upper.y();
         //lipheight average
         long lipheight = (d.part(48).y() - upper.y() + d.part(54).y() - upper.y())/2;
-        qDebug() << mh;
+        // qDebug() << mh;
         lines.push_back(dlib::image_window::overlay_line(upper, d.part(48), rgb_pixel(255,255,255)));
         if(mh/2 >= 1.35 *  lipheight) {
             // glücklich
