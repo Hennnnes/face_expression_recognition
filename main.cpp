@@ -1,11 +1,10 @@
 #include <qDebug>
-#include <videocapturer.h>
+#include "videothread.h"
+
+#include <QThread>
 
 int main()
 {
-    VideoCapturer capturer = VideoCapturer();
-    capturer.start();
+    videoThread thread;
+    thread.start();
 }
-
-
-
