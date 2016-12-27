@@ -3,10 +3,9 @@
 #include <dlib/image_processing/frontal_face_detector.h>
 #include <dlib/image_processing/render_face_detections.h>
 #include <dlib/image_processing.h>
-#include <dlib/gui_widgets.h>
 
 #include <qDebug>
-#include <facerecognizer.h>
+#include "facerecognizer.h"
 
 #include "videocapturer.h"
 
@@ -31,10 +30,6 @@ void VideoCapturer::start() {
             exit;
         }
 
-
-
-        image_window win;  // TODO: von außen aufrufen
-
         // Load face detection and pose estimation models.
         frontal_face_detector detector = get_frontal_face_detector();
         shape_predictor pose_model;
@@ -47,7 +42,7 @@ void VideoCapturer::start() {
 
 
         // Grab and process frames until the main window is closed by the user.
-        while(!win.is_closed())
+        while(true)
         {
 
             // schleife erstmal nur für einen Frame ausführen
@@ -73,12 +68,6 @@ void VideoCapturer::start() {
                 }
 
 
-
-                // Display it all on the screen
-                 win.clear_overlay();
-                 win.set_image(cimg);
-
-
                 // calculate overlay
                 FaceRecognizer recog = FaceRecognizer();
                 std::vector<image_window::overlay_line> lines = recog.calculateOverlay(shapes);
@@ -96,8 +85,7 @@ void VideoCapturer::start() {
 
                 }
 
-                // add overlay
-                 win.add_overlay(lines);
+
             }
         }
     }

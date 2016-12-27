@@ -6,6 +6,3 @@ int main()
     VideoCapturer capturer = VideoCapturer();
     capturer.start();
 }
-
-
-
