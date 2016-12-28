@@ -38,3 +38,21 @@ macx {
     # link source.cpp inside dlib/all/
     SOURCES +=  ../../../../../../../../dlib-19.2/dlib/all/source.cpp
 }
+
+
+win32 {
+#  für Windows muss die Umgebungsvariable OPENCV_DIR gesetzt sein
+#  auf den Pfad der OpenCV-Installation
+#  Beispiel: C:\opencv\opencv-3.1.0\opencv\build\x64\vc14
+
+    INCLUDEPATH += $$(OPENCV_DIR)\..\..\include
+    LIBS += -L$$(OPENCV_DIR)\lib
+    Release:LIBS +=  -lopencv_world310
+    Debug:LIBS +=  -lopencv_world310d
+
+    INCLUDEPATH += R:\Users\Raoul\Desktop\dlib-19.2
+    LIBS+= -lgdi32 -lcomctl32 -luser32 -lwinmm -lws2_32
+
+    SOURCES +=     ../../../Desktop/dlib-19.2/dlib/all/source.cpp
+
+}
