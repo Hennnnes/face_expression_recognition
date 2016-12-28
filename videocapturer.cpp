@@ -43,8 +43,8 @@ void VideoCapturer::start() {
 
 
         // init last emotions array
-        std::list<int> emotionlist;
-
+        //std::list<int> emotionlist;
+        std::vector<int> tenEmotions;
 
         // Grab and process frames until the main window is closed by the user.
         while(!win.is_closed())
@@ -83,16 +83,42 @@ void VideoCapturer::start() {
                 FaceRecognizer recog = FaceRecognizer();
                 std::vector<image_window::overlay_line> lines = recog.calculateOverlay(shapes);
 
-                int emotion = recog.getEmotion();
+                if(tenEmotions.size() >= 10) {
+                    tenEmotions.erase(tenEmotions.begin());
+                }
 
-                if (emotion == 1) {
-                    qDebug() << "emotion: glücklich";
+                tenEmotions.push_back(recog.getEmotion());
 
-                } else if (emotion == 0) {
-                    qDebug() << "emotion: neutral";
+                int happy = 0;
+                int neutral = 0;
+                int sad = 0;
 
-                } else if (emotion == 2) {
+                for(int i = 0; i < tenEmotions.size(); i++) {
+                    qDebug() << tenEmotions[i];
+                    if(tenEmotions[i] = 0) {
+                        neutral++;
+                    } else if (tenEmotions[i] = 1){
+                        happy++;
+                    } else if (tenEmotions[i] = 2) {
+                        sad++;
+                    }
+                }
+
+                qDebug() << happy << sad << neutral;
+                //int emotion = recog.getEmotion();
+
+                if (happy >= sad) {
+                    if(happy >= neutral){
+                        qDebug() << "emotion: glücklich";
+                    } else {
+                        qDebug() << "emotion: neutral";
+                    }
+
+                } else if (sad >= neutral) {
                     qDebug() << "emotion: traurig";
+
+                } else {
+                    qDebug() << "emotion: neutral";
 
                 }
 
