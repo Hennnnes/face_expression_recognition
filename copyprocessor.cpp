@@ -20,18 +20,17 @@ cv::Mat CopyProcessor::process(const cv::Mat&source){
     // source.copyTo(copyOfSource);
     // return copyOfSource;
 
-   qDebug() << "test";
+    qDebug() << "test";
 
-    Mat output(source.rows, source.cols, source.type());
-        for(int x = 0; x < source.cols; x++){
-            for(int y = 0; y < source.rows; y++){
-                Vec3b inputPixel = source.at<Vec3b>(y,x);
-                int r = inputPixel[2] + 20;
-                int g = inputPixel[1] + 20;
-                int b = 0;
-                Vec3b outputPixel (b, g, r);    //= inputPixel + offset;//brightnessOffset;
-                output.at<Vec3b>(y,x) = outputPixel;
-            }
-        }
+    Mat output = qtProcess(source);
+
     return output;
+}
+
+
+// wird für jedes Videoframe aufgerufen
+cv::Mat CopyProcessor::qtProcess(const cv::Mat&source){
+
+
+    return source;
 }
