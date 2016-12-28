@@ -9,6 +9,8 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     , copyProcessor(new CopyProcessor)
 {
     ui->setupUi(this);
+
+    // setProcessor
     videoThread->setProcessor(copyProcessor);
     connect(videoThread, &VideoEngine::sendInputImage,
             ui->inputFrame, &VideoWidget::setImage);
@@ -40,4 +42,6 @@ void VideoPlayer::on_actionKamera_ffnen_triggered()
 void VideoPlayer::on_actionPlay_triggered()
 {
     videoThread->start();
+
+    // hier wird das process in einem eigenen Thread gestartet.
 }

@@ -87,7 +87,7 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
         point upper = point(0,1000);
         point lower = point(0,0);
 
-        for(int i = 48; i < 68; i++) {
+        for ( int i = 48; i < 68; i++) {
             if (d.part(i).y() > lower.y()){
                 lower = d.part(i);
             }
@@ -98,28 +98,25 @@ std::vector<image_window::overlay_line> FaceRecognizer::calculateOverlay(std::ve
 
         // Mouthheight
         long mh = (lower.y() - upper.y());
-        // qDebug() << upper.y();
+
         //lipheight average
         long lipheight = (d.part(48).y() - upper.y() + d.part(54).y() - upper.y())/2;
-        // qDebug() << mh;
+
         lines.push_back(dlib::image_window::overlay_line(upper, d.part(48), rgb_pixel(255,255,255)));
-        if(mh/2 >= 1.35 *  lipheight) {
+
+        if ( mh/2 >= (1.35 * lipheight) ) {
             // glücklich
             emotion = 1;
             lines.push_back(dlib::image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(0,0,255)));
-
-        } else if (mh / 2 < 1 * lipheight) {
+        } else if ( mh / 2 < (1 * lipheight) ) {
             // traurig
             emotion = 2;
             lines.push_back(dlib::image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(255,100,0)));
-
         } else {
             // neutral
             emotion = 0;
             lines.push_back(dlib::image_window::overlay_line(d.part(48), d.part(54), rgb_pixel(255,255,255)));
-
         }
-
 
     }
 

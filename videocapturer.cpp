@@ -4,8 +4,9 @@
 #include <dlib/image_processing/render_face_detections.h>
 #include <dlib/image_processing.h>
 
+
 #include <qDebug>
-#include "facerecognizer.h"
+#include <facerecognizer.h>
 
 #include "videocapturer.h"
 
@@ -18,11 +19,11 @@ VideoCapturer::VideoCapturer()
 
 }
 
-void VideoCapturer::start() {
+void VideoCapturer::start(cv::VideoCapture cap) {
     try
     {
         // videocapture
-        cv::VideoCapture cap(0);
+        //cv::VideoCapture cap(0);
 
         if (!cap.isOpened())
         {
@@ -44,9 +45,6 @@ void VideoCapturer::start() {
         // Grab and process frames until the main window is closed by the user.
         while(true)
         {
-
-            // schleife erstmal nur für einen Frame ausführen
-            if (true){
                 // Grab a frame
                 cv::Mat temp;
                 cap >> temp;
@@ -67,7 +65,6 @@ void VideoCapturer::start() {
                     shapes.push_back(pose_model(cimg, faces[i]));
                 }
 
-
                 // calculate overlay
                 FaceRecognizer recog = FaceRecognizer();
                 std::vector<image_window::overlay_line> lines = recog.calculateOverlay(shapes);
@@ -84,9 +81,6 @@ void VideoCapturer::start() {
                     qDebug() << "emotion: traurig";
 
                 }
-
-
-            }
         }
     }
     catch(serialization_error& e)

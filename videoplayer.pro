@@ -11,47 +11,35 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-    facerecognizer.cpp \
-    videocapturer.cpp
+        videoplayer.cpp \
+        facerecognizer.cpp \
+        videocapturer.cpp \
+        copyprocessor.cpp \
+        videothread.cpp
+
+HEADERS  += videoplayer.h \
+            facerecognizer.h \
+            videocapturer.h \
+            copyprocessor.h \
+            videothread.h
 
 FORMS    += videoplayer.ui
 
+
+include(../opencv/videoengine.pri)
+
+DISTFILES += \
+    shape_predictor_68_face_landmarks.dat
+
+
+## Link Dlib Stuff
 macx {
-
-    # The following lines tells Qmake to  use pkg-config for opencv
-    QT_CONFIG -= no-pkg-config
-    CONFIG  += link_pkgconfig
-    PKGCONFIG += opencv
-
+    # path to dlib folder
     INCLUDEPATH += /Users/hennesroemmer/dlib-19.2
     LIBS += -pthread
     CONFIG += link_pkgconfig
     PKGCONFIG += x11
 
+    # link source.cpp inside dlib/all/
     SOURCES +=  ../../../../../../../../dlib-19.2/dlib/all/source.cpp
-
 }
-DISTFILES += \
-    shape_predictor_68_face_landmarks.dat
-
-
-win32 {
-#  für Windows muss die Umgebungsvariable OPENCV_DIR gesetzt sein
-#  auf den Pfad der OpenCV-Installation
-#  Beispiel: C:\opencv\opencv-3.1.0\opencv\build\x64\vc14
-
-    INCLUDEPATH += $$(OPENCV_DIR)\..\..\include
-    LIBS += -L$$(OPENCV_DIR)\lib
-    Release:LIBS +=  -lopencv_world310
-    Debug:LIBS +=  -lopencv_world310d
-
-    INCLUDEPATH += R:\Users\Raoul\Desktop\dlib-19.2
-    LIBS+= -lgdi32 -lcomctl32 -luser32 -lwinmm -lws2_32
-
-    SOURCES +=     ../../../Desktop/dlib-19.2/dlib/all/source.cpp
-
-}
-
-HEADERS += \
-    facerecognizer.h \
-    videocapturer.h
