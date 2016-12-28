@@ -12,24 +12,18 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         videoplayer.cpp \
-        facerecognizer.cpp \
-        videocapturer.cpp \
         copyprocessor.cpp \
-        videothread.cpp
+
 
 HEADERS  += videoplayer.h \
-            facerecognizer.h \
-            videocapturer.h \
             copyprocessor.h \
-            videothread.h
 
 FORMS    += videoplayer.ui
 
 
 include(../opencv/videoengine.pri)
 
-DISTFILES += \
-    shape_predictor_68_face_landmarks.dat
+DISTFILES +=
 
 
 ## Link Dlib Stuff

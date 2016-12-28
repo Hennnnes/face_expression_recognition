@@ -12,6 +12,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
 
     // setProcessor
     videoThread->setProcessor(copyProcessor);
+
     connect(videoThread, &VideoEngine::sendInputImage,
             ui->inputFrame, &VideoWidget::setImage);
     connect(videoThread, &VideoEngine::sendProcessedImage,
