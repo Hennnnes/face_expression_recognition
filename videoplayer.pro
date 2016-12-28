@@ -23,7 +23,7 @@ FORMS    += videoplayer.ui
 
 include(../opencv/videoengine.pri)
 
-DISTFILES +=    shape_predictor_68_face_landmarks.dat
+DISTFILES += shape_predictor_68_face_landmarks.dat
 
 
 ## Link Dlib Stuff
