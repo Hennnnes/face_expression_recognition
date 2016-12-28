@@ -19,6 +19,9 @@ using namespace dlib;
 using namespace std;
 // end dlib namespaces
 
+frontal_face_detector detector;
+shape_predictor pose_model;
+
 CopyProcessor::CopyProcessor()
 {
 
@@ -26,7 +29,9 @@ CopyProcessor::CopyProcessor()
 
 // wird vor dem ersten Videoframe aufgerufen
 void CopyProcessor::startProcessing(const VideoFormat& format){
+    frontal_face_detector detector = get_frontal_face_detector();
 
+    deserialize("shape_predictor_68_face_landmarks.dat") >> pose_model;
 }
 
 // wird für jedes Videoframe aufgerufen
@@ -46,12 +51,10 @@ cv::Mat CopyProcessor::process(const cv::Mat&source){
 // wird für jedes Videoframe aufgerufen
 cv::Mat CopyProcessor::qtProcess(const cv::Mat&source){
 
+
     // now for each frame, fixed later
             // Load face detection and pose estimation models.
-            frontal_face_detector detector = get_frontal_face_detector();
-            shape_predictor pose_model;
 
-            deserialize("shape_predictor_68_face_landmarks.dat") >> pose_model;
     // end now for each frame
 
     // dlib function from videocapturer.cpp
@@ -78,7 +81,6 @@ cv::Mat CopyProcessor::qtProcess(const cv::Mat&source){
 
     // calculate overlay originally from facerecognizer.cpp fucntion calculateOverlay()
         std::vector<image_window::overlay_line> lines;
-
             for (unsigned long i = 0; i < shapes.size(); ++i)
             {
                 DLIB_CASSERT(shapes[i].num_parts() == 68,
