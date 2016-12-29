@@ -95,11 +95,11 @@ void VideoCapturer::start() {
 
                 for(int i = 0; i < tenEmotions.size(); i++) {
                     qDebug() << tenEmotions[i];
-                    if(tenEmotions[i] = 0) {
+                    if(tenEmotions[i] == 0) {
                         neutral++;
-                    } else if (tenEmotions[i] = 1){
+                    } else if (tenEmotions[i] == 1){
                         happy++;
-                    } else if (tenEmotions[i] = 2) {
+                    } else if (tenEmotions[i] == 2) {
                         sad++;
                     }
                 }
