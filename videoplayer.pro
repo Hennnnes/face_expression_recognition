@@ -12,11 +12,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         videoplayer.cpp \
-    dlibprocessor.cpp
+    dlibprocessor.cpp \
+    facerecognizer.cpp \
+    videocapturer.cpp
 
 
 HEADERS  += videoplayer.h \
-    dlibprocessor.h
+    dlibprocessor.h \
+    facerecognizer.h \
+    videocapturer.h
 
 FORMS    += videoplayer.ui
 
