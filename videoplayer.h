@@ -19,7 +19,6 @@ public:
     ~VideoPlayer();
 
 private slots:
-    void on_actionVideodatei_ffnen_triggered();
     void on_actionKamera_ffnen_triggered();
     void on_actionPlay_triggered();
 private:

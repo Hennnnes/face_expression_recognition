@@ -13,10 +13,8 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     // setProcessor
     videoThread->setProcessor(dlibprocessor);
 
-    connect(videoThread, &VideoEngine::sendInputImage,
-            ui->inputFrame, &VideoWidget::setImage);
     connect(videoThread, &VideoEngine::sendProcessedImage,
-            ui->processedFrame, &VideoWidget::setImage);
+            ui->inputFrame, &VideoWidget::setImage);
 }
 
 VideoPlayer::~VideoPlayer()
@@ -26,14 +24,6 @@ VideoPlayer::~VideoPlayer()
     delete dlibprocessor;
 }
 
-void VideoPlayer::on_actionVideodatei_ffnen_triggered()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Movie"),QDir::homePath());
-
-    if (!fileName.isEmpty()) {
-        videoThread->openFile(fileName);
-     }
-}
 
 void VideoPlayer::on_actionKamera_ffnen_triggered()
 {
