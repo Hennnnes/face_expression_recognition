@@ -91,6 +91,10 @@ int FaceRecognizer::getEmotion(std::vector<full_object_detection> shapes) {
             emotion = 0;
 
         }
+
+        if (emotion != 1 && (d.part(66) - d.part(62)).y() > lipheight) {
+            emotion = 3;
+        }
     }
     else {
         emotion = -1;

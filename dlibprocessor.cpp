@@ -17,7 +17,7 @@ void Dlibprocessor::startProcessing(const VideoFormat& format){
 
 // wird für jedes Videoframe aufgerufen
 cv::Mat Dlibprocessor::process(const cv::Mat&source){
-    String text = "Sad";
+    String text = "abc";
     int fontFace = FONT_HERSHEY_DUPLEX;
     double fontScale = 1;
     int thickness = 1;
@@ -43,8 +43,11 @@ cv::Mat Dlibprocessor::process(const cv::Mat&source){
     case 2:
         text = "Happy";
         break;
+    case 3:
+        text = "Surprised";
+        break;
     default:
-        text = "Error";
+        text = "Default";
     }
 
     // then put the text itself
@@ -82,9 +85,12 @@ int Dlibprocessor::recognizeFace(cv::Mat temp) {
 
     tenEmotions.push_back(recog.getEmotion(shapes));
 
+
     int happy = 0;
     int neutral = 0;
     int sad = 0;
+    int surprised = 0;
+    int error = 0;
 
     for(int i = 0; i < tenEmotions.size(); i++) {
         //qDebug() << tenEmotions[i];
@@ -94,29 +100,28 @@ int Dlibprocessor::recognizeFace(cv::Mat temp) {
             happy++;
         } else if (tenEmotions[i] == 2) {
             sad++;
+        } else if (tenEmotions[i] == 3) {
+            surprised++;
+        } else {
+            error++;
         }
+
     }
 
-    qDebug() << happy << neutral << sad ;
+    //qDebug() << happy << neutral << sad ;
     int emotion = 1;
 
-    if (happy >= sad) {
-        if(happy >= neutral){
-            qDebug() << "emotion: glücklich";
-            emotion = 2;
-
-        } else {
-            qDebug() << "emotion: neutral";
-            emotion = 1;
-        }
-
-    } else if (sad >= neutral) {
+    if (happy >= sad && happy >= surprised && happy >= neutral && happy >= error)  {
+        qDebug() << "emotion: glücklich";
+        emotion = 2;
+    } else if (sad >= neutral && sad >= surprised && sad >= error) {
         qDebug() << "emotion: traurig";
         emotion = 0;
-
-    } else {
-        qDebug() << "emotion: neutral";
-        emotion = 1;
+    } else if (surprised >= neutral && surprised >= error){
+        qDebug() << "emotion: surprised";
+        emotion = 3;
+    } else if (error >= neutral) {
+        emotion = -1;
     }
 
     return emotion;
