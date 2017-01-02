@@ -25,13 +25,9 @@ VideoPlayer::~VideoPlayer()
 }
 
 
-void VideoPlayer::on_actionKamera_ffnen_triggered()
-{
-    videoThread->openCamera();
-}
-
 void VideoPlayer::on_actionPlay_triggered()
 {
+    videoThread->openCamera();
     videoThread->start();
 
     // hier wird das process in einem eigenen Thread gestartet.

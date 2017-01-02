@@ -1,7 +1,5 @@
 #include "dlibprocessor.h"
 
-#include "videocapturer.h"
-
 using namespace dlib;
 using namespace std;
 using namespace cv;
@@ -28,13 +26,23 @@ cv::Mat Dlibprocessor::process(const cv::Mat&source){
     Mat output;
     source.copyTo(output);
 
-    recognizeFace(output);
+    int emotion = recognizeFace(output);
     //rectangle(output, Point(0,0), Point(100, 100), Scalar(0, 200, 200), 3);
 
-
-    int baseline=0;
-    Size textSize = getTextSize(text, fontFace, fontScale, thickness, &baseline);
-    baseline += thickness;
+    switch (emotion)
+    {
+    case 0:
+        text = "sad";
+        break;
+    case 1:
+        text = "neutral";
+        break;
+    case 2:
+        text = "happy";
+        break;
+    default:
+        text = "Fehler";
+    }
 
     // then put the text itself
     putText(output, text, Point(50, 50), fontFace, fontScale,
@@ -44,7 +52,7 @@ cv::Mat Dlibprocessor::process(const cv::Mat&source){
 }
 
 
-void Dlibprocessor::recognizeFace(cv::Mat temp) {
+int Dlibprocessor::recognizeFace(cv::Mat temp) {
     // Turn OpenCV's Mat into something dlib can deal with.  Note that this just
     // wraps the Mat object, it doesn't copy anything.  So cimg is only valid as
     // long as temp is valid.  Also don't do anything to temp that would cause it
@@ -64,13 +72,12 @@ void Dlibprocessor::recognizeFace(cv::Mat temp) {
 
     // calculate overlay
     FaceRecognizer recog = FaceRecognizer();
-    std::vector<image_window::overlay_line> lines = recog.calculateOverlay(shapes);
 
-    if(tenEmotions.size() >= 20) {
+    if(tenEmotions.size() >= 10) {
         tenEmotions.erase(tenEmotions.begin());
     }
 
-    tenEmotions.push_back(recog.getEmotion());
+    tenEmotions.push_back(recog.getEmotion(shapes));
 
     int happy = 0;
     int neutral = 0;
@@ -88,19 +95,26 @@ void Dlibprocessor::recognizeFace(cv::Mat temp) {
     }
 
     qDebug() << happy << neutral << sad ;
+    int emotion = 1;
 
     if (happy >= sad) {
         if(happy >= neutral){
             qDebug() << "emotion: glücklich";
+            emotion = 2;
+
         } else {
             qDebug() << "emotion: neutral";
+            emotion = 1;
         }
 
     } else if (sad >= neutral) {
         qDebug() << "emotion: traurig";
+        emotion = 0;
 
     } else {
         qDebug() << "emotion: neutral";
+        emotion = 1;
     }
 
+    return emotion;
 }

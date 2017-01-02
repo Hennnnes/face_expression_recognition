@@ -21,7 +21,7 @@ public:
     Dlibprocessor();
     void startProcessing(const VideoFormat& format);
     cv::Mat process(const cv::Mat&source);
-    void recognizeFace(cv::Mat source);
+    int recognizeFace(cv::Mat source);
 private:
     frontal_face_detector detector;
     shape_predictor pose_model;
