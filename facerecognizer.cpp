@@ -50,17 +50,15 @@ FaceRecognizer::FaceRecognizer()
 
 int FaceRecognizer::getEmotion(std::vector<full_object_detection> shapes) {
 
-    std::vector<image_window::overlay_line> lines;
+    if (shapes.size() == 1) {
 
-    for (unsigned long i = 0; i < shapes.size(); ++i)
-    {
-        DLIB_CASSERT(shapes[i].num_parts() == 68,
+        DLIB_CASSERT(shapes[0].num_parts() == 68,
             "\t std::vector<image_window::overlay_line> render_face_detections()"
             << "\n\t Invalid inputs were given to this function. "
-            << "\n\t shapes["<<i<<"].num_parts():  " << shapes[i].num_parts()
+            << "\n\t shapes["<<0<<"].num_parts():  " << shapes[0].num_parts()
         );
 
-        const full_object_detection& d = shapes[i];
+        const full_object_detection& d = shapes[0];
 
         point upper = point(0,1000);
         point lower = point(0,0);
@@ -93,9 +91,12 @@ int FaceRecognizer::getEmotion(std::vector<full_object_detection> shapes) {
             emotion = 0;
 
         }
-
-
     }
+    else {
+        emotion = -1;
+    }
+
+
     return emotion;
 
 

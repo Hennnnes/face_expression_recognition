@@ -31,17 +31,20 @@ cv::Mat Dlibprocessor::process(const cv::Mat&source){
 
     switch (emotion)
     {
+    case -1:
+        text = "One face only please";
+        break;
     case 0:
-        text = "sad";
+        text = "Sad";
         break;
     case 1:
-        text = "neutral";
+        text = "Neutral";
         break;
     case 2:
-        text = "happy";
+        text = "Happy";
         break;
     default:
-        text = "Fehler";
+        text = "Error";
     }
 
     // then put the text itself
