@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QImage>
 #include "videoengine.h"
-#include "copyprocessor.h"
+#include "dlibprocessor.h"
 
 namespace Ui {
 class VideoPlayer;
@@ -25,7 +25,7 @@ private slots:
 private:
     Ui::VideoPlayer *ui;
     VideoEngine *videoThread;
-    CopyProcessor *copyProcessor;
+    Dlibprocessor *dlibprocessor;
 };
 
 #endif // VIDEOPLAYER_H

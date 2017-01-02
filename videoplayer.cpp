@@ -6,12 +6,12 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::VideoPlayer)
     , videoThread(new VideoEngine)
-    , copyProcessor(new CopyProcessor)
+    , dlibprocessor(new Dlibprocessor)
 {
     ui->setupUi(this);
 
     // setProcessor
-    videoThread->setProcessor(copyProcessor);
+    videoThread->setProcessor(dlibprocessor);
 
     connect(videoThread, &VideoEngine::sendInputImage,
             ui->inputFrame, &VideoWidget::setImage);
@@ -23,7 +23,7 @@ VideoPlayer::~VideoPlayer()
 {
     delete videoThread;
     delete ui;
-    delete copyProcessor;
+    delete dlibprocessor;
 }
 
 void VideoPlayer::on_actionVideodatei_ffnen_triggered()
