@@ -72,8 +72,6 @@ void VideoCapturer::start() {
                     shapes.push_back(pose_model(cimg, faces[i]));
                 }
 
-
-
                 // Display it all on the screen
                  win.clear_overlay();
                  win.set_image(cimg);
@@ -83,7 +81,7 @@ void VideoCapturer::start() {
                 FaceRecognizer recog = FaceRecognizer();
                 std::vector<image_window::overlay_line> lines = recog.calculateOverlay(shapes);
 
-                if(tenEmotions.size() >= 10) {
+                if(tenEmotions.size() >= 20) {
                     tenEmotions.erase(tenEmotions.begin());
                 }
 
@@ -94,7 +92,7 @@ void VideoCapturer::start() {
                 int sad = 0;
 
                 for(int i = 0; i < tenEmotions.size(); i++) {
-                    qDebug() << tenEmotions[i];
+                    //qDebug() << tenEmotions[i];
                     if(tenEmotions[i] == 0) {
                         neutral++;
                     } else if (tenEmotions[i] == 1){
@@ -104,7 +102,7 @@ void VideoCapturer::start() {
                     }
                 }
 
-                qDebug() << happy << sad << neutral;
+                qDebug() << happy << neutral << sad ;
                 //int emotion = recog.getEmotion();
 
                 if (happy >= sad) {
