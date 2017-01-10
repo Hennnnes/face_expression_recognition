@@ -13,6 +13,7 @@ Dlibprocessor::Dlibprocessor()
 void Dlibprocessor::startProcessing(const VideoFormat& format){
     detector = get_frontal_face_detector();
     deserialize("shape_predictor_68_face_landmarks.dat") >> pose_model;
+    soundmodul.initializeAudio();
 }
 
 // wird für jedes Videoframe aufgerufen
@@ -28,6 +29,7 @@ cv::Mat Dlibprocessor::process(const cv::Mat&source){
 
     int emotion = recognizeFace(output);
     //rectangle(output, Point(0,0), Point(100, 100), Scalar(0, 200, 200), 3);
+    soundmodul.getMidiManager()->setEmotion(emotion);
 
     switch (emotion)
     {

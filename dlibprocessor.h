@@ -12,6 +12,8 @@
 #include <qDebug>
 #include <facerecognizer.h>
 
+#include "soundmodul.h"
+
 using namespace dlib;
 
 
@@ -22,6 +24,7 @@ public:
     void startProcessing(const VideoFormat& format);
     cv::Mat process(const cv::Mat&source);
     int recognizeFace(cv::Mat source);
+    SoundModul soundmodul;
 private:
     frontal_face_detector detector;
     shape_predictor pose_model;
