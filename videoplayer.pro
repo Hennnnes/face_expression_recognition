@@ -50,7 +50,8 @@ SOURCES += main.cpp\
     mixer.cpp \
     soundmodul.cpp \
     soundsource.cpp \
-    audiothread.cpp
+    audiothread.cpp \
+    audiowindow.cpp
 
 
 
@@ -96,7 +97,8 @@ HEADERS  += videoplayer.h \
     mixer.h \
     soundmodul.h \
     soundsource.h \
-    audiothread.h
+    audiothread.h \
+    audiowindow.h
 
 FORMS    += videoplayer.ui
 

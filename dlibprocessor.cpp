@@ -1,4 +1,6 @@
 #include "dlibprocessor.h"
+#include "audiowindow.h"
+#include "audiothread.h"
 
 using namespace dlib;
 using namespace std;
@@ -6,13 +8,14 @@ using namespace cv;
 
 Dlibprocessor::Dlibprocessor()
 {
-
 }
 
 // wird vor dem ersten Videoframe aufgerufen
 void Dlibprocessor::startProcessing(const VideoFormat& format){
     detector = get_frontal_face_detector();
     deserialize("shape_predictor_68_face_landmarks.dat") >> pose_model;
+    //AudioWindow audiowindow;
+    //audiothread = new AudioThread(&audiowindow);
 }
 
 // wird für jedes Videoframe aufgerufen
@@ -27,7 +30,12 @@ cv::Mat Dlibprocessor::process(const cv::Mat&source){
     source.copyTo(output);
 
     int emotion = recognizeFace(output);
-    //rectangle(output, Point(0,0), Point(100, 100), Scalar(0, 200, 200), 3);
+
+    int count = 0;
+    if(count = -1) {
+        window->setEmotion(emotion);
+    }
+    count += 1;
 
     switch (emotion)
     {
@@ -55,6 +63,10 @@ cv::Mat Dlibprocessor::process(const cv::Mat&source){
             Scalar(0, 0, 255), thickness, 8);
 
     return output;
+}
+
+void Dlibprocessor::setAudioWindow(AudioWindow *window){
+    this->window = window;
 }
 
 

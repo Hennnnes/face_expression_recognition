@@ -12,6 +12,8 @@
 #include <qDebug>
 #include <facerecognizer.h>
 
+#include "audiowindow.h"
+
 using namespace dlib;
 
 
@@ -22,10 +24,13 @@ public:
     void startProcessing(const VideoFormat& format);
     cv::Mat process(const cv::Mat&source);
     int recognizeFace(cv::Mat source);
+    void setAudioWindow(AudioWindow* window);
+
 private:
     frontal_face_detector detector;
     shape_predictor pose_model;
     std::vector<int> tenEmotions;
+    AudioWindow* window;
 };
 
 #endif // DLIBPROCESSOR_H

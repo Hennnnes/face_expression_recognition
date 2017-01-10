@@ -46,7 +46,7 @@ float SoundSource::createSample(){
 // Reads the next samples into the buffers of the audio channels
 qint64 SoundSource::read(float **buffer, qint64 numFrames){
     // get audio data for left channel
-    // qDebug() << "Read wird aufgerufen";
+    //qDebug() << "Read wird aufgerufen";
     for(int i = 0; i < numFrames; i++){
         buffer[0][i] = createSample();
     }

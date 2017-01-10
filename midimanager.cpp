@@ -55,7 +55,7 @@ void MidiManager::setEmotion(int emotion){
     switch (emotion){
     //NEUTRAL
     case 0:
-        infile_name = "C:\\Users\\Jan\\Desktop\\Medientechnik\\Semester 5\\AV-Programmierung\\test6.mid"; /***MidiFile für NEUTRAL einfügen*/
+        infile_name = "test6.mid"; /***MidiFile für NEUTRAL einfügen*/
         break;
     //HAPPY
     case 1:

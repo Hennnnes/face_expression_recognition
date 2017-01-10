@@ -5,6 +5,7 @@
 #include <QImage>
 #include "videoengine.h"
 #include "dlibprocessor.h"
+#include "audiowindow.h"
 
 namespace Ui {
 class VideoPlayer;
@@ -17,6 +18,7 @@ class VideoPlayer : public QMainWindow
 public:
     explicit VideoPlayer(QWidget *parent = 0);
     ~VideoPlayer();
+    void setAudioWindow(AudioWindow* window);
 
 private slots:
     void on_actionPlay_triggered();

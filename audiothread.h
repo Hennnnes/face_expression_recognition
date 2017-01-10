@@ -11,6 +11,8 @@ class AudioThread: public QThread
 public:
     AudioThread(QObject* parent);
     void run();
+    void test();
+    void setEmotion(int emotion);
 
 private:
     SoundModul* sm;
