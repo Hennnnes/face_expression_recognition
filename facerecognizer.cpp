@@ -82,7 +82,7 @@ int FaceRecognizer::getEmotion(std::vector<full_object_detection> shapes) {
             // glücklich
             emotion = 1;
 
-        } else if (mh / 2 < 1 * lipheight) {
+        } else if (mh / 2 < 0.8 * lipheight) {
             // traurig
             emotion = 2;
 
@@ -92,7 +92,7 @@ int FaceRecognizer::getEmotion(std::vector<full_object_detection> shapes) {
 
         }
 
-        if (emotion != 1 && (d.part(66) - d.part(62)).y() > lipheight) {
+        if (emotion != 1 && (d.part(66) - d.part(62)).y() > 0.8 * lipheight) {
             emotion = 3;
         }
     }
