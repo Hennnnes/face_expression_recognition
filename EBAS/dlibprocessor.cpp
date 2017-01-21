@@ -1,6 +1,4 @@
 #include "dlibprocessor.h"
-#include "audiowindow.h"
-#include "audiothread.h"
 
 using namespace dlib;
 using namespace std;
@@ -8,14 +6,14 @@ using namespace cv;
 
 Dlibprocessor::Dlibprocessor()
 {
+
 }
 
 // wird vor dem ersten Videoframe aufgerufen
 void Dlibprocessor::startProcessing(const VideoFormat& format){
     detector = get_frontal_face_detector();
     deserialize("shape_predictor_68_face_landmarks.dat") >> pose_model;
-    //AudioWindow audiowindow;
-    //audiothread = new AudioThread(&audiowindow);
+    //initialize Audiothread new audiothread(this);
 }
 
 // wird für jedes Videoframe aufgerufen
@@ -29,30 +27,39 @@ cv::Mat Dlibprocessor::process(const cv::Mat&source){
     Mat output;
     source.copyTo(output);
 
-    int emotion = recognizeFace(output);
 
-    int count = 0;
-    if(count = -1) {
-        window->setEmotion(emotion);
-    }
-    count += 1;
+    int emotion = recognizeFace(output);
+    //rectangle(output, Point(0,0), Point(100, 100), Scalar(0, 200, 200), 3);
+    //if (!audiothread.playing)
+    //audiothread.setEmotion(emotion)
+
+
 
     switch (emotion)
     {
+    case -2:
+        text = "No face found";
+        break;
     case -1:
         text = "One face only please";
         break;
     case 0:
         text = "Sad";
+        ac->setEmotion(2);
         break;
     case 1:
         text = "Neutral";
+        ac->setEmotion(0);
+        //ac->getMixer()->on(440,1,0);
         break;
     case 2:
         text = "Happy";
+        ac->setEmotion(1);
+        //ac->getMixer()->off(440,0);
         break;
     case 3:
         text = "Surprised";
+        ac->setEmotion(3);
         break;
     default:
         text = "Default";
@@ -63,10 +70,6 @@ cv::Mat Dlibprocessor::process(const cv::Mat&source){
             Scalar(0, 0, 255), thickness, 8);
 
     return output;
-}
-
-void Dlibprocessor::setAudioWindow(AudioWindow *window){
-    this->window = window;
 }
 
 
@@ -103,6 +106,7 @@ int Dlibprocessor::recognizeFace(cv::Mat temp) {
     int sad = 0;
     int surprised = 0;
     int error = 0;
+    int noFaceError = 0;
 
     for(int i = 0; i < tenEmotions.size(); i++) {
         //qDebug() << tenEmotions[i];
@@ -114,8 +118,10 @@ int Dlibprocessor::recognizeFace(cv::Mat temp) {
             sad++;
         } else if (tenEmotions[i] == 3) {
             surprised++;
-        } else {
+        } else if (tenEmotions[i] == -1){
             error++;
+        } else {
+            return -2;
         }
 
     }
@@ -124,17 +130,22 @@ int Dlibprocessor::recognizeFace(cv::Mat temp) {
     int emotion = 1;
 
     if (happy >= sad && happy >= surprised && happy >= neutral && happy >= error)  {
-        qDebug() << "emotion: glücklich";
+        //qDebug() << "emotion: glücklich";
         emotion = 2;
     } else if (sad >= neutral && sad >= surprised && sad >= error) {
-        qDebug() << "emotion: traurig";
+        //qDebug() << "emotion: traurig";
         emotion = 0;
     } else if (surprised >= neutral && surprised >= error){
-        qDebug() << "emotion: surprised";
+        //qDebug() << "emotion: surprised";
         emotion = 3;
     } else if (error >= neutral) {
         emotion = -1;
     }
 
     return emotion;
+}
+
+
+void Dlibprocessor::setAudioController(AudioController *ac){
+    this->ac = ac;
 }

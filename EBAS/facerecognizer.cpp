@@ -49,8 +49,10 @@ FaceRecognizer::FaceRecognizer()
 
 
 int FaceRecognizer::getEmotion(std::vector<full_object_detection> shapes) {
-
-    if (shapes.size() == 1) {
+    if(shapes.size() == 0) {
+        emotion = -2;
+    }
+    else if (shapes.size() == 1) {
 
         DLIB_CASSERT(shapes[0].num_parts() == 68,
             "\t std::vector<image_window::overlay_line> render_face_detections()"
@@ -92,7 +94,7 @@ int FaceRecognizer::getEmotion(std::vector<full_object_detection> shapes) {
 
         }
 
-        if (emotion != 1 && (d.part(66) - d.part(62)).y() > 0.8 * lipheight) {
+        if (emotion != 1 && (d.part(66) - d.part(62)).y() > 0.8 *  lipheight) {
             emotion = 3;
         }
     }

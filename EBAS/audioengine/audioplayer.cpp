@@ -15,7 +15,8 @@ AudioPlayer::AudioPlayer(QObject* parent, int bufferSize)
     , available(0)
     , audioProcessor(0)
 {
-    qDebug() << bufferSize;
+    qDebug() << "AudioPlayer initialized";
+    qDebug() << "AudioPlayer BufferSize:" << bufferSize;
 }
 AudioPlayer::~AudioPlayer(){
     qDebug() << "~AudioPlayer";
@@ -29,7 +30,7 @@ void AudioPlayer::setAudioProcessor(AudioProcessor*audioProcessor){
 }
 
 void AudioPlayer::stop(){
-    qDebug() << "stop";
+    qDebug() << "AudioPlayer: stop()";
     close();
     if (audioSource){
         audioSource->stop();
@@ -43,7 +44,7 @@ void AudioPlayer::stop(){
 }
 
 void AudioPlayer::start(){
-    qDebug() << "start";
+    qDebug() << "AudioPlayer: start()";
     close();
     if (audioSource != 0){
         audioSource->start();

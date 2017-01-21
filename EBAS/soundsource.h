@@ -3,7 +3,8 @@
 
 #include "audioengine/audiosource.h"
 #include "mixer.h"
-#include "midimanager.h"
+#include "audiocontroller.h"
+//#include "midimanager.h"
 
 
 class SoundSource: public AudioSource
@@ -15,14 +16,18 @@ public:
     virtual qint64 read(float **buffer, qint64 numFrames);
     virtual void start();
     virtual void stop();
-    Mixer* getMixer();
-    void setMidiManager(MidiManager* midiManager);
+    void setMixer(Mixer* mixer);
+    void setAudioController(AudioController* ac);
+    int getSampleRate();
+    //Mixer* getMixer();
+    //void setMidiManager(MidiManager* midiManager);
 
 private:
-    MidiManager* midiManager;
+    //MidiManager* midiManager;
+    Mixer *mixer;
+    AudioController *ac;
     float createSample();
     QAudioFormat audioFormat;
-    Mixer mixer;
 
 };
 

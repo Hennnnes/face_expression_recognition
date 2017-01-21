@@ -1,22 +1,20 @@
 #include "audiothread.h"
-#include "QDebug"
 
-AudioThread::AudioThread(QObject* parent):
-    sm(new SoundModul(parent))
+#include <QDebug>
+
+AudioThread::AudioThread()
 {
 
+    //this->setPriority(QThread::TimeCriticalPriority)
+    qDebug() << "AudioThread initialized";
 }
 
+AudioThread::~AudioThread(){
+    qDebug() << "~AudioThread";
+}
 
 void AudioThread::run(){
-    sm->initializeAudio();
-    sm->getMidiManager()->setEmotion(0);
-}
-
-void AudioThread::test() {
-    qDebug() << "test";
-}
-
-void AudioThread::setEmotion(int emotion) {
-    sm->getMidiManager()->setEmotion(emotion);
+    this->setPriority(QThread::HighPriority);
+    qDebug() << "AudioThread started:" << thread()->currentThreadId();
+    exec();
 }

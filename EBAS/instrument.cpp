@@ -20,6 +20,7 @@ Instrument::~Instrument(){
 void Instrument::initialize(int sampleRate, int num_osc){
     this->sampleRate = sampleRate;
     this->set_num_osc(num_osc);
+    qDebug() << "Instrument initialized";
 }
 
 // sets the Type of the Instrument
@@ -50,7 +51,7 @@ void Instrument::set_num_osc(int num){
         env[i]->setSustainLevel(-20);
         env[i]->setDecayLoss(-10);
         env[i]->setDecaying(true);
-        std::vector<float> overtones(14);
+        std::vector<float> overtones(9);
         overtones[0] = 1;
         overtones[1] = 2.0021;
         overtones[2] = 3.01;
@@ -60,13 +61,13 @@ void Instrument::set_num_osc(int num){
         overtones[6] = 7.1266;
         overtones[7] = 8.185;
         overtones[8] = 9.2738;
-        overtones[9] = 10.093;
-        overtones[10] = 10.3726;
-        overtones[11] = 11.1261;
-        overtones[12] = 11.4882;
-        overtones[13] = 12.6180;
+//        overtones[9] = 10.093;
+//        overtones[10] = 10.3726;
+//        overtones[11] = 11.1261;
+//        overtones[12] = 11.4882;
+//        overtones[13] = 12.6180;
 
-        std::vector<float> overtoneLevels(14);
+        std::vector<float> overtoneLevels(9);
         overtoneLevels[0] = 0;
         overtoneLevels[1] = -10.9858;
         overtoneLevels[2] = -24.3062;
@@ -76,11 +77,11 @@ void Instrument::set_num_osc(int num){
         overtoneLevels[6] = -38.8853;
         overtoneLevels[7] = -55.0847;
         overtoneLevels[8] = -60.6511;
-        overtoneLevels[9] = -86.1601;
-        overtoneLevels[10] = -77.9193;
-        overtoneLevels[11] = -81.2649;
-        overtoneLevels[12] = -74.2643;
-        overtoneLevels[13] = -76.9091;
+//        overtoneLevels[9] = -86.1601;
+//        overtoneLevels[10] = -77.9193;
+//        overtoneLevels[11] = -81.2649;
+//        overtoneLevels[12] = -74.2643;
+//        overtoneLevels[13] = -76.9091;
 
         osc[i]->setOvertones(overtones);
         osc[i]->setOvertoneLevels(overtoneLevels);
@@ -112,6 +113,7 @@ float Instrument::getValue(){
         float oscSample = osc[i]->getValue();
         sample += env[i]->process(oscSample);
     }
+    //qDebug() << "Instrument: getValue():" << sample;
     return sample;
 }
 
@@ -131,7 +133,7 @@ void Instrument::on(float frequency, float velocity){
             osc[k]->setFrequency(frequency);
             env[k]->on();
         }
-        qDebug() << frequency << k;
+        qDebug() << "Instrument on" << frequency << k;
     }
 }
 
@@ -141,6 +143,7 @@ void Instrument::off(float frequency){
         if(frequency == osc[i]->getFrequency()){
             osc[i]->setFrequency(0);
             env[i]->off();
+            qDebug() << "Instrument off" << frequency << i;
         }
     }
     this->isAvailable();

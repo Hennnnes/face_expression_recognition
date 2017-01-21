@@ -6,7 +6,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::VideoPlayer)
     , videoThread(new VideoEngine)
-    , dlibprocessor(new Dlibprocessor())
+    , dlibprocessor(new Dlibprocessor)
 {
     ui->setupUi(this);
 
@@ -24,15 +24,16 @@ VideoPlayer::~VideoPlayer()
     delete dlibprocessor;
 }
 
-void VideoPlayer::setAudioWindow(AudioWindow *window){
-    dlibprocessor->setAudioWindow(window);
-}
 
 void VideoPlayer::on_actionPlay_triggered()
 {
     videoThread->openCamera();
     videoThread->start();
 
-
     // hier wird das process in einem eigenen Thread gestartet.
+}
+
+void VideoPlayer::setAudioController(AudioController *ac){
+    this->ac = ac;
+    dlibprocessor->setAudioController(ac);
 }

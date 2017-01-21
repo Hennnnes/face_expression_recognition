@@ -14,98 +14,37 @@ SOURCES += main.cpp\
         videoplayer.cpp \
     dlibprocessor.cpp \
     facerecognizer.cpp \
-#Soundstuff
-    jdks_midi_lib/jdksmidi_advancedsequencer.cpp \
-    jdks_midi_lib/jdksmidi_driver.cpp \
-    jdks_midi_lib/jdksmidi_driverdump.cpp \
-    jdks_midi_lib/jdksmidi_edittrack.cpp \
-    jdks_midi_lib/jdksmidi_file.cpp \
-    jdks_midi_lib/jdksmidi_fileread.cpp \
-    jdks_midi_lib/jdksmidi_filereadmultitrack.cpp \
-    jdks_midi_lib/jdksmidi_fileshow.cpp \
-    jdks_midi_lib/jdksmidi_filewrite.cpp \
-    jdks_midi_lib/jdksmidi_filewritemultitrack.cpp \
-    jdks_midi_lib/jdksmidi_keysig.cpp \
-    jdks_midi_lib/jdksmidi_manager.cpp \
-    jdks_midi_lib/jdksmidi_matrix.cpp \
-    jdks_midi_lib/jdksmidi_midi.cpp \
-    jdks_midi_lib/jdksmidi_msg.cpp \
-    jdks_midi_lib/jdksmidi_multitrack.cpp \
-    jdks_midi_lib/jdksmidi_parser.cpp \
-    jdks_midi_lib/jdksmidi_process.cpp \
-    jdks_midi_lib/jdksmidi_queue.cpp \
-    jdks_midi_lib/jdksmidi_sequencer.cpp \
-    jdks_midi_lib/jdksmidi_showcontrol.cpp \
-    jdks_midi_lib/jdksmidi_showcontrolhandler.cpp \
-    jdks_midi_lib/jdksmidi_smpte.cpp \
-    jdks_midi_lib/jdksmidi_sysex.cpp \
-    jdks_midi_lib/jdksmidi_tempo.cpp \
-    jdks_midi_lib/jdksmidi_tick.cpp \
-    jdks_midi_lib/jdksmidi_track.cpp \
-    jdks_midi_lib/jdksmidi_utils.cpp \
     additiveoscillator.cpp \
+    audiocontroller.cpp \
+    audiomodule.cpp \
+    audiothread.cpp \
     envelope.cpp \
     instrument.cpp \
-    midimanager.cpp \
     mixer.cpp \
-    soundmodul.cpp \
     soundsource.cpp \
-    audiothread.cpp \
-    audiowindow.cpp
-
+    toneevent.cpp \
+    sequencer.cpp
 
 
 HEADERS  += videoplayer.h \
     dlibprocessor.h \
     facerecognizer.h \
-#Soundstuff
-    jdks_midi_lib/advancedsequencer.h \
-    jdks_midi_lib/driver.h \
-    jdks_midi_lib/driverdump.h \
-    jdks_midi_lib/driverwin32.h \
-    jdks_midi_lib/edittrack.h \
-    jdks_midi_lib/file.h \
-    jdks_midi_lib/fileread.h \
-    jdks_midi_lib/filereadmultitrack.h \
-    jdks_midi_lib/fileshow.h \
-    jdks_midi_lib/filewrite.h \
-    jdks_midi_lib/filewritemultitrack.h \
-    jdks_midi_lib/keysig.h \
-    jdks_midi_lib/manager.h \
-    jdks_midi_lib/matrix.h \
-    jdks_midi_lib/midi.h \
-    jdks_midi_lib/msg.h \
-    jdks_midi_lib/multitrack.h \
-    jdks_midi_lib/parser.h \
-    jdks_midi_lib/process.h \
-    jdks_midi_lib/queue.h \
-    jdks_midi_lib/sequencer.h \
-    jdks_midi_lib/showcontrol.h \
-    jdks_midi_lib/showcontrolhandler.h \
-    jdks_midi_lib/smpte.h \
-    jdks_midi_lib/song.h \
-    jdks_midi_lib/sysex.h \
-    jdks_midi_lib/tempo.h \
-    jdks_midi_lib/tick.h \
-    jdks_midi_lib/track.h \
-    jdks_midi_lib/utils.h \
-    jdks_midi_lib/world.h \
     additiveoscillator.h \
+    audiocontroller.h \
+    audiomodule.h \
+    audiothread.h \
     envelope.h \
     instrument.h \
-    midimanager.h \
     mixer.h \
-    soundmodul.h \
     soundsource.h \
-    audiothread.h \
-    audiowindow.h
+    toneevent.h \
+    sequencer.h
 
 FORMS    += videoplayer.ui
 
 
 include(../opencv/videoengine.pri)
-include(./audioEngine/audioplayer.pri)
-
+include(./audioengine/AudioPlayer.pri)
 
 DISTFILES += shape_predictor_68_face_landmarks.dat
 
@@ -136,6 +75,6 @@ win32 {
     INCLUDEPATH += C:\Users\Raoul\Desktop\dlib-19.2
     LIBS+= -lgdi32 -lcomctl32 -luser32 -lwinmm -lws2_32
 
-    SOURCES +=     ../../Desktop/dlib-19.2/dlib/all/source.cpp
+    SOURCES +=     C:\Users\Raoul\Desktop\dlib-19.2\dlib\all\source.cpp
 
 }
