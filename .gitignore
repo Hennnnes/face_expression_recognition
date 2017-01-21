@@ -40,4 +40,4 @@ CMakeLists.txt.user
 
 # Ordner 
 /debug
-/release
+*/release
