@@ -53,11 +53,13 @@ float Mixer::getValue(){
 
 // Note on
 void Mixer::on(float frequency, float velocity, int channel){
+    qDebug() << "Mixer on" << frequency << channel;
     instruments[channel]->on(frequency,velocity);
 }
 
 
 //Note off
 void Mixer::off(float frequency, float channel){
+    qDebug() << "Mixer off" << frequency << channel;
     instruments[channel]->off(frequency);
 }

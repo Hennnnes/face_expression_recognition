@@ -5,15 +5,15 @@
 class ToneEvent
 {
 public:
-    ToneEvent(int time, float frequency, float velocity, int channel);
+    ToneEvent(float time, float frequency, float velocity, int channel);
 
-    int getTime();
+    float getTime();
     float getFrequency();
     float getVelocity();
     int getChannel();
 
 private:
-    int time;
+    float time;
     float frequency;
     float velocity;
     int channel;

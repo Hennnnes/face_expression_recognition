@@ -43,9 +43,9 @@ void Instrument::set_num_osc(int num){
     for(int i = 0; i < num_osc; i++){
         osc[i] = new AdditiveOscillator();
         env[i] = new Envelope();
-        osc[i]->initialize(44100);
-        env[i]->initialize(44100);
-        env[i]->setAttackSeconds(.1);
+        osc[i]->initialize(sampleRate);
+        env[i]->initialize(sampleRate);
+        env[i]->setAttackSeconds(.05);
         env[i]->setDecaySeconds(.3);
         env[i]->setReleaseSeconds(1.5);
         env[i]->setSustainLevel(-20);
@@ -140,7 +140,7 @@ void Instrument::on(float frequency, float velocity){
 // triggers the note with the frequency to stop playing
 void Instrument::off(float frequency){
     for(int i = 0; i < osc.size(); i++){
-        if(frequency == osc[i]->getFrequency()){
+        if(frequency == osc[i]->getFrequency() || frequency == 0){
             osc[i]->setFrequency(0);
             env[i]->off();
             qDebug() << "Instrument off" << frequency << i;

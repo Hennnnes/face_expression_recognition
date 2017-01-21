@@ -6,8 +6,8 @@ AudioController::AudioController()
 {
     am = new AudioModule;
     am->moveToThread(&at);
-    connect(am->getSequencer(), &Sequencer::off, this, &AudioController::off);
     connect(am->getSequencer(), &Sequencer::on, this, &AudioController::on);
+    connect(am->getSequencer(), &Sequencer::off, this, &AudioController::off);
     connect(&at, &QThread::finished, am, &QObject::deleteLater);
     connect(this, &AudioController::testSig1, am, &AudioModule::test);
     connect(this, &AudioController::initSig, am, &AudioModule::initialize);

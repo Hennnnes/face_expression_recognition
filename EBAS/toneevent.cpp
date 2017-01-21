@@ -1,6 +1,6 @@
 #include "toneevent.h"
 
-ToneEvent::ToneEvent(int time,float frequency, float velocity, int channel):
+ToneEvent::ToneEvent(float time,float frequency, float velocity, int channel):
     time(time),
     frequency(frequency),
     velocity(velocity),
@@ -9,7 +9,7 @@ ToneEvent::ToneEvent(int time,float frequency, float velocity, int channel):
 
 }
 
-int ToneEvent::getTime(){
+float ToneEvent::getTime(){
     return time;
 }
 
