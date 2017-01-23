@@ -17,11 +17,11 @@ inline float gain2db(float gain){
 
 
 // Constructor
-Envelope::Envelope():
+Envelope::Envelope(AdditiveOscillator *aosc):
     sampleRate(0), gain(0), state(OFF), attackSeconds(0)
   , decaySeconds(0), releaseSeconds(0), sustain_dB(MIN_DB)
   , sustain_gain(MIN_GAIN), decay_dB_per_sec(0), decaying(false)
-  , gainChange(0)
+  , gainChange(0), aosc(aosc)
 {
 }
 
@@ -84,6 +84,7 @@ float Envelope::process(float input){
     }
     // switches the state to OFF when gain reaches the MIN_GAIN
     if(state == RELEASE && gain < MIN_GAIN){
+        aosc->setFrequency(0);
         setState(OFF);
     }
 

@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     mixer.cpp \
     soundsource.cpp \
     toneevent.cpp \
-    sequencer.cpp
+    sequencer.cpp \
+    ../../dlib-19.2/dlib/all/source.cpp
+
 
 
 HEADERS  += videoplayer.h \
@@ -49,18 +51,6 @@ include(./audioengine/AudioPlayer.pri)
 DISTFILES += shape_predictor_68_face_landmarks.dat
 
 
-## Link Dlib Stuff
-macx {
-    # path to dlib folder
-    INCLUDEPATH += /Users/hennesroemmer/dlib-19.2
-    LIBS += -pthread
-    CONFIG += link_pkgconfig
-    PKGCONFIG += x11
-
-    # link source.cpp inside dlib/all/
-    SOURCES +=  ../../../../../../../../dlib-19.2/dlib/all/source.cpp
-}
-
 
 win32 {
 #  für Windows muss die Umgebungsvariable OPENCV_DIR gesetzt sein
@@ -72,9 +62,9 @@ win32 {
     Release:LIBS +=  -lopencv_world310
     Debug:LIBS +=  -lopencv_world310d
 
-    INCLUDEPATH += C:\Users\Raoul\Desktop\dlib-19.2
+    INCLUDEPATH += ../../dlib-19.2
     LIBS+= -lgdi32 -lcomctl32 -luser32 -lwinmm -lws2_32
 
-    SOURCES +=     C:\Users\Raoul\Desktop\dlib-19.2\dlib\all\source.cpp
+    #SOURCES +=     C:\Users\Jan\Desktop\Medientechnik\Semester5\AV-Programmierung\dlib-19.2\dlib\all\source.cpp
 
 }

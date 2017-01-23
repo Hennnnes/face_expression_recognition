@@ -10,10 +10,12 @@
  * is applied to the input samples.
  */
 
+#include "additiveoscillator.h"
+
 class Envelope
 {
 public:
-    Envelope();
+    Envelope(AdditiveOscillator *aosc);
     ~Envelope();
 
     void initialize(int sampleRate);
@@ -46,6 +48,8 @@ private:
 
     State state;
     int sampleRate;
+
+    AdditiveOscillator *aosc;
 };
 
 #endif // ENVELOPE_H

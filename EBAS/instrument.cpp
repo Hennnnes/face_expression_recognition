@@ -42,16 +42,16 @@ void Instrument::set_num_osc(int num){
     // creates the new Oscillators and Envelopes
     for(int i = 0; i < num_osc; i++){
         osc[i] = new AdditiveOscillator();
-        env[i] = new Envelope();
+        env[i] = new Envelope(osc[i]);
         osc[i]->initialize(sampleRate);
         env[i]->initialize(sampleRate);
-        env[i]->setAttackSeconds(.05);
-        env[i]->setDecaySeconds(.3);
-        env[i]->setReleaseSeconds(1.5);
+        env[i]->setAttackSeconds(.1);
+        env[i]->setDecaySeconds(.2);
+        env[i]->setReleaseSeconds(.8);
         env[i]->setSustainLevel(-20);
         env[i]->setDecayLoss(-10);
         env[i]->setDecaying(true);
-        std::vector<float> overtones(9);
+        std::vector<float> overtones(14);
         overtones[0] = 1;
         overtones[1] = 2.0021;
         overtones[2] = 3.01;
@@ -61,13 +61,13 @@ void Instrument::set_num_osc(int num){
         overtones[6] = 7.1266;
         overtones[7] = 8.185;
         overtones[8] = 9.2738;
-//        overtones[9] = 10.093;
-//        overtones[10] = 10.3726;
-//        overtones[11] = 11.1261;
-//        overtones[12] = 11.4882;
-//        overtones[13] = 12.6180;
+        overtones[9] = 10.093;
+        overtones[10] = 10.3726;
+        overtones[11] = 11.1261;
+        overtones[12] = 11.4882;
+        overtones[13] = 12.6180;
 
-        std::vector<float> overtoneLevels(9);
+        std::vector<float> overtoneLevels(14);
         overtoneLevels[0] = 0;
         overtoneLevels[1] = -10.9858;
         overtoneLevels[2] = -24.3062;
@@ -77,15 +77,15 @@ void Instrument::set_num_osc(int num){
         overtoneLevels[6] = -38.8853;
         overtoneLevels[7] = -55.0847;
         overtoneLevels[8] = -60.6511;
-//        overtoneLevels[9] = -86.1601;
-//        overtoneLevels[10] = -77.9193;
-//        overtoneLevels[11] = -81.2649;
-//        overtoneLevels[12] = -74.2643;
-//        overtoneLevels[13] = -76.9091;
+        overtoneLevels[9] = -86.1601;
+        overtoneLevels[10] = -77.9193;
+        overtoneLevels[11] = -81.2649;
+        overtoneLevels[12] = -74.2643;
+        overtoneLevels[13] = -76.9091;
 
         osc[i]->setOvertones(overtones);
         osc[i]->setOvertoneLevels(overtoneLevels);
-        osc[i]->setGain(.5);
+        osc[i]->setGain(.3);
     }
     available = true; // sets the availability to true
 }
@@ -140,10 +140,14 @@ void Instrument::on(float frequency, float velocity){
 // triggers the note with the frequency to stop playing
 void Instrument::off(float frequency){
     for(int i = 0; i < osc.size(); i++){
-        if(frequency == osc[i]->getFrequency() || frequency == 0){
-            osc[i]->setFrequency(0);
+        if(frequency == osc[i]->getFrequency()){
+            //osc[i]->setFrequency(0);
             env[i]->off();
             qDebug() << "Instrument off" << frequency << i;
+        }
+        else if(frequency == 0){
+            env[i]->off();
+            osc[i]->setFrequency(0);
         }
     }
     this->isAvailable();
