@@ -23,9 +23,7 @@ SOURCES += main.cpp\
     mixer.cpp \
     soundsource.cpp \
     toneevent.cpp \
-    sequencer.cpp \
-    ../../dlib-19.2/dlib/all/source.cpp
-
+    sequencer.cpp
 
 
 HEADERS  += videoplayer.h \
@@ -50,6 +48,18 @@ include(./audioengine/AudioPlayer.pri)
 
 DISTFILES += shape_predictor_68_face_landmarks.dat
 
+
+## Link Dlib Stuff
+macx {
+    # path to dlib folder
+    INCLUDEPATH += /Users/hennesroemmer/dlib-19.2
+    LIBS += -pthread
+    CONFIG += link_pkgconfig
+    PKGCONFIG += x11
+
+    # link source.cpp inside dlib/all/
+    SOURCES +=  ../../../../../../../../dlib-19.2/dlib/all/source.cpp
+}
 
 
 win32 {
