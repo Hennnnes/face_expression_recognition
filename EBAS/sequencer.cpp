@@ -22,7 +22,7 @@ Sequencer::Sequencer()
     neutral[9] = new ToneEvent(2.,196,1,0);
     neutral[10] = new ToneEvent(2.1,221,0,0);
     neutral[11] = new ToneEvent(4.,196,0,0);
-    neutral[12] = new ToneEvent(5.,0,0,0);
+    neutral[12] = new ToneEvent(7.,0,0,0);
 
     //HAPPY
     happy.resize(15);
@@ -40,7 +40,7 @@ Sequencer::Sequencer()
     happy[11] = new ToneEvent(3.,523,1,0);
     happy[12] = new ToneEvent(3.1,494,0,0);
     happy[13] = new ToneEvent(4.,523,0,0);
-    happy[14] = new ToneEvent(3.,0,0,0);
+    happy[14] = new ToneEvent(6.,0,0,0);
 
     //SAD
     sad.resize(22);
@@ -66,7 +66,7 @@ Sequencer::Sequencer()
     sad[18] = new ToneEvent(4.1,350,0,0);
     sad[19] = new ToneEvent(6.,523,0,0);
     sad[20] = new ToneEvent(6.,331,0,0);
-    sad[21] = new ToneEvent(7.,0,0,0);
+    sad[21] = new ToneEvent(9.,0,0,0);
 
     //SURPRISED
     surprised.resize(19);
@@ -88,7 +88,7 @@ Sequencer::Sequencer()
     surprised[15] = new ToneEvent(3.,263,1,0);
     surprised[16] = new ToneEvent(3.1,247,0,0);
     surprised[17] = new ToneEvent(4.,263,0,0);
-    surprised[18] = new ToneEvent(5.,0,0,0);
+    surprised[18] = new ToneEvent(7.,0,0,0);
 
 
     qDebug() << "Sequencer initialized";

@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     SoundSource ss;
 
     //AudioPlayer wird im MainThread erzeugt
-    AudioPlayer ap(&w, 128);
+    AudioPlayer ap(&w, 1024);
     ap.setAudioSource(&ss);
 
 

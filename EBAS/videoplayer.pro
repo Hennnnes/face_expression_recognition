@@ -72,9 +72,9 @@ win32 {
     Release:LIBS +=  -lopencv_world310
     Debug:LIBS +=  -lopencv_world310d
 
-    INCLUDEPATH += ../../dlib-19.2
+    INCLUDEPATH += C:\Users\Raoul\Desktop\dlib-19.2\
     LIBS+= -lgdi32 -lcomctl32 -luser32 -lwinmm -lws2_32
 
-    #SOURCES +=     C:\Users\Jan\Desktop\Medientechnik\Semester5\AV-Programmierung\dlib-19.2\dlib\all\source.cpp
+    SOURCES +=     C:\Users\Raoul\Desktop\dlib-19.2\dlib\all\source.cpp
 
 }
