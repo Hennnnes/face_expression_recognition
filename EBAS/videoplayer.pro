@@ -52,13 +52,13 @@ DISTFILES += shape_predictor_68_face_landmarks.dat
 ## Link Dlib Stuff
 macx {
     # path to dlib folder
-    INCLUDEPATH += /Users/hennesroemmer/dlib-19.2
+    INCLUDEPATH += ../dlib
     LIBS += -pthread
     CONFIG += link_pkgconfig
     PKGCONFIG += x11
 
     # link source.cpp inside dlib/all/
-    SOURCES +=  ../../../../../../../../dlib-19.2/dlib/all/source.cpp
+    SOURCES +=  ../dlib/dlib/all/source.cpp
 }
 
 
@@ -72,9 +72,9 @@ win32 {
     Release:LIBS +=  -lopencv_world310
     Debug:LIBS +=  -lopencv_world310d
 
-    INCLUDEPATH += C:\Users\Raoul\Desktop\dlib-19.2\
+    INCLUDEPATH += ..\dlib\
     LIBS+= -lgdi32 -lcomctl32 -luser32 -lwinmm -lws2_32
 
-    SOURCES +=     C:\Users\Raoul\Desktop\dlib-19.2\dlib\all\source.cpp
+    SOURCES +=     ..\dlib\dlib\all\source.cpp
 
 }
